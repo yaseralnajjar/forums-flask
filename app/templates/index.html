@@ -1,0 +1,108 @@
+﻿<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Forums Workshop</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="centered-item">
+        <h1>OneMillion</h1>
+    </div>
+
+    <div class="centered-item">
+        <a href="#">Members</a>
+
+        <a href="#">Profile</a>
+    </div>
+
+    <div class="content">
+        <a href="#">Create</a>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+
+                    <th>
+                        Edit
+                    </th>
+
+                    <th>
+                        Delete
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <!--<tr>
+                <td>
+                    topic1
+                </td>
+
+                <td>
+                    <a href="#">edit</a>
+                </td>
+
+                <td>
+                    <a href="#">delete</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    topic2
+                </td>
+
+                <td>
+                    <a href="#">edit</a>
+                </td>
+
+                <td>
+                    <a href="#">delete</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    topic3
+                </td>
+
+                <td>
+                    <a href="#">edit</a>
+                </td>
+
+                <td>
+                    <a href="#">delete</a>
+                </td>
+            </tr>-->
+                
+            {% for post in posts %}
+                <tr>
+                    <td>
+                        {{post.title}}
+                    </td>
+
+                    <td>
+                        <a href="#">edit</a>
+                    </td>
+
+                    <td>
+                        <a href="#">delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
+

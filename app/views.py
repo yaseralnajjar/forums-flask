@@ -45,7 +45,11 @@ def topic_show(id):
 
 @app.route("/topic/delete/<int:id>")
 def topic_delete(id):
-    post_store.delete(id)
+    try:
+        post_store.delete(id)
+    except ValueError:
+        abort(404)
+
     return redirect(url_for("home"))
 
 

@@ -28,12 +28,10 @@ def topic_update(id):
         post.title = request.form["title"]
         post.content = request.form["content"]
         post_store.update(post)
-        result = redirect(url_for("home"))
+        return redirect(url_for("home"))
 
     elif request.method == "GET":
-        result = render_template("topic_update.html", post = post)
-
-    return result
+        return render_template("topic_update.html", post = post)
 
 @app.route("/topic/show/<int:id>")
 def topic_show(id):

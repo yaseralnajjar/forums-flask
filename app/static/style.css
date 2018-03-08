@@ -25,3 +25,11 @@ thead {
     text-align: center;
     margin: 10px auto;
 }
+
+.error-title{
+    font-size: 30px
+}
+
+.error-message{
+    font-size: 15px
+}

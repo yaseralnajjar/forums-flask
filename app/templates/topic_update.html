@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Topic Add</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    
+<div class="input-form">
+    <form action="{{ url_for("topic_update", id = post.id) }}" method="post">
+    
+        <input type="text" name="title" value="{{ post.title }}"/>
+        <input type="text" name="content" value="{{ post.content }}"/>
+    
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+
+</body>
+
+</html>

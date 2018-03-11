@@ -47,6 +47,8 @@ class BaseStore():
         instance = self.get_by_id(id)
         self._data_provider.remove(instance)
 
+        return instance
+
     def entity_exists(self, instance):
         result = True
 

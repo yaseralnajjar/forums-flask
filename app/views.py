@@ -39,7 +39,7 @@ def topic_update(id):
 def topic_show(id):
     post = post_store.get_by_id(id)
     if post is None:
-        abort(404)
+        abort(404, "Couldn't find this topic id !")
 
     return render_template("topic_show.html", post = post)
 
@@ -55,5 +55,5 @@ def topic_delete(id):
 
 
 @app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
+def page_not_found(error):
+    return render_template('404.html', message = error.description)

@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, abort
+from flask import render_template, request, redirect, url_for, abort, jsonify
 from app import models
 from app import app, member_store, post_store
 
@@ -18,6 +18,7 @@ def topic_add():
     else:
         return render_template("topic_add.html")
 
+
 @app.route("/topic/update/<int:id>", methods = ["GET", "POST"])
 def topic_update(id):
     post = post_store.get_by_id(id)
@@ -33,13 +34,15 @@ def topic_update(id):
     elif request.method == "GET":
         return render_template("topic_update.html", post = post)
 
+
 @app.route("/topic/show/<int:id>")
 def topic_show(id):
     post = post_store.get_by_id(id)
     if post is None:
-        abort(404)
+        abort(404, "Couldn't find this topic id !")
 
     return render_template("topic_show.html", post = post)
+
 
 @app.route("/topic/delete/<int:id>")
 def topic_delete(id):
@@ -52,5 +55,5 @@ def topic_delete(id):
 
 
 @app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
+def page_not_found(error):
+    return render_template('404.html', message = error.description)

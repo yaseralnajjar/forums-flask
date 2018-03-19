@@ -1,4 +1,6 @@
-from app import models, stores, dummy_data
+from app import models
+from app import stores
+
 
 def create_members():
     member1 = models.Member("Mohammed", 20)
@@ -38,14 +40,18 @@ def print_all_members(member_store):
 
 
 def get_by_id_should_retrieve_same_object(member_store, member2):
-    member2_retrieved = member_store.get_by_id(2)
+    member2_retrieved = member_store.get_by_id(member2.id)
 
     if member2 is member2_retrieved:
         print("member2 and member2_retrieved are matching !")
 
 
 def update_should_modify_object(member_store, member3):
-    member3_copy = models.Member.query.get(3)
+    member3_copy = models.Member(member3.name, member3.age)
+    member3_copy.id = 3
+
+    if member3_copy is not member3:
+        print("member3 and member3_copy are not the same !")
 
     print(member3_copy)
     member3_copy.name = "John"
@@ -95,8 +101,8 @@ def store_should_add_posts(posts_instances, post_store):
         post_store.add(member)
 
 
-def store_should_get_members_with_posts(member_store):
-    members_with_posts = member_store.get_members_with_posts()
+def store_should_get_members_with_posts(member_store, post_store):
+    members_with_posts = member_store.get_members_with_posts(post_store.get_all())
 
     for member_with_posts in members_with_posts:
         print(f"{member_with_posts} has posts:")
@@ -106,23 +112,18 @@ def store_should_get_members_with_posts(member_store):
         print("=" * 10)
 
 
-def store_should_get_top_two(member_store):
-    top_two_members = member_store.get_top_two()
+def store_should_get_top_two(member_store, post_store):
+    top_two_members = member_store.get_top_two(post_store.get_all())
 
     for member_with_posts in top_two_members:
         print(f"{member_with_posts} has posts:")
         for post in member_with_posts.posts:
             print(f"\t{post}")
 
-
-member_store = stores.MemberStore()
-post_store = stores.PostStore()
-
-members_instances = dummy_data.dummy_members
+members_instances = create_members()
 member1, member2, member3 = members_instances
 
-posts_instances = dummy_data.dummy_posts
-post1, post2, post3, post4, post5, post6, post7, post8, post9 = posts_instances
+member_store = stores.MemberStore()
 
 store_should_add_members(members_instances, member_store)
 
@@ -140,9 +141,15 @@ print_all_members(member_store)
 
 store_should_get_members_by_name(member_store)
 
+
+
+posts_instances = create_posts(members_instances)
+post1, post2, post3, post4, post5, post6, post7, post8, post9 = posts_instances
+
+post_store = stores.PostStore()
+
 store_should_add_posts(posts_instances, post_store)
 
-store_should_get_members_with_posts(member_store)
+store_should_get_members_with_posts(member_store, post_store)
 
-store_should_get_top_two(member_store)
-
+store_should_get_top_two(member_store, post_store)

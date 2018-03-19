@@ -1,26 +1,30 @@
-from app import models
+from app import models, db
 
 dummy_members = [
-    models.Member("Mohammed", 20),
-    models.Member("Mohammed", 22),
-    models.Member("Abdo", 25),
+    models.Member(name="Mohammed", age=20),
+    models.Member(name="Mohammed", age=22),
+    models.Member(name="Abdo", age=25),
 ]
 
 dummy_posts = [
-    models.Post("Agriculture", "Agriculture is amazing", dummy_members[0].id),
-    models.Post("Engineering", "I love engineering", dummy_members[0].id),
+    models.Post(title="Agriculture", content="Agriculture is amazing", member_id=1),
+    models.Post(title="Engineering", content="I love engineering", member_id=1),
 
-    models.Post("Medicine", "Medicine is great", dummy_members[1].id),
-    models.Post("Architecture", "Spectacular art", dummy_members[1].id),
-    models.Post("Astronomy", "Space is awesome", dummy_members[1].id),
+    models.Post(title="Medicine", content="Medicine is great", member_id=2),
+    models.Post(title="Architecture", content="Spectacular art", member_id=2),
+    models.Post(title="Astronomy", content="Space is awesome", member_id=2),
 
-    models.Post("Geology", "Earth is our friend", dummy_members[2].id),
-    models.Post("ComputerSci", "Our passion", dummy_members[2].id),
-    models.Post("Algorithms", "Yeah, more of that", dummy_members[2].id),
-    models.Post("Operating Systems", "Ewww", dummy_members[2].id),
+    models.Post(title="Geology", content="Earth is our friend", member_id=3),
+    models.Post(title="ComputerSci", content="Our passion", member_id=3),
+    models.Post(title="Algorithms", content="Yeah, more of that", member_id=3),
+    models.Post(title="Operating Systems", content="Ewww", member_id=3),
 ]
 
+
 def seed_stores(member_store, post_store):
+    db.drop_all()
+    db.create_all()
+
     for member in dummy_members:
         member_store.add(member)
 

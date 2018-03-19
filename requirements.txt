@@ -1,2 +1,4 @@
 Flask==0.12.2
 Flask-Gunicorn==0.1.1
+Flask-SQLAlchemy==2.3.2
+psycopg2==2.7.4

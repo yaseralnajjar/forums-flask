@@ -1,4 +1,5 @@
 from app import models, db
+from sqlalchemy import engine
 
 dummy_members = [
     models.Member(name="Mohammed", age=20),
@@ -21,12 +22,16 @@ dummy_posts = [
 ]
 
 
+def tables_exist():
+    return db.engine.table_names() != []
+
+
 def seed_stores(member_store, post_store):
-    db.drop_all()
-    db.create_all()
+    if not tables_exist():
+        db.drop_all()
+        db.create_all()
 
-    for member in dummy_members:
-        member_store.add(member)
-
-    for post in dummy_posts:
-        post_store.add(post)
+        for member in dummy_members:
+            member_store.add(member)
+        for post in dummy_posts:
+            post_store.add(post)
